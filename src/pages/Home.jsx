@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import React from 'react'
 import ContactsTable from '../components/ContactsTable'
@@ -10,7 +10,7 @@ const Home = () => {
       container
       justifyContent={'space-between'}
       alignItems={'center'}
-      gap={2}
+      // gap={2}
     >
       <Grid item xs={12} sm={6} md={5} lg={4} padding={3}>
         <InputPanel />

@@ -19,89 +19,89 @@ const Register = () => {
   }
 
   return (
-    <form onSubmit={submitHandler} style={{ width: '100%' }}>
-      <Grid
-        container
-        justifyContent={'center'}
-        spacing={2}
-        sx={{
-          padding: '2rem 0'
-        }}
-      >
-        <Grid item xs={12} sm={8}>
-          <Typography variant='h1' fontSize={48} textAlign={'center'} mb={3}>
-            Register
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} sm={8}>
-          <TextField
-            id='outlined-basic'
-            label='First Name'
-            variant='outlined'
-            type={'text'}
-            placeholder='Enter your first name'
-            error={false}
-            required
-            fullWidth
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <TextField
-            id='outlined-basic'
-            label='Last Name'
-            variant='outlined'
-            type={'text'}
-            placeholder='Enter your last name'
-            error={false}
-            required
-            fullWidth
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <TextField
-            id='outlined-basic'
-            label='Email'
-            variant='outlined'
-            type={'email'}
-            placeholder='Enter your email'
-            error={false}
-            required
-            fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <TextField
-            id='outlined-basic'
-            label='Password'
-            type={'password'}
-            variant='outlined'
-            placeholder='Enter your password'
-            error={false}
-            required
-            fullWidth
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <Button
-            variant='contained'
-            type='submit'
-            sx={{ padding: '0.5rem 0', fontSize: '1.3rem' }}
-            fullWidth
-          >
-            Login
-          </Button>
-        </Grid>
+    <Grid
+      container
+      component={'form'}
+      justifyContent={'center'}
+      spacing={2}
+      sx={{
+        padding: '2rem 0'
+      }}
+      onSubmit={submitHandler}
+    >
+      <Grid item xs={12} sm={8}>
+        <Typography variant='h1' fontSize={48} textAlign={'center'} mb={3}>
+          Register
+        </Typography>
       </Grid>
-    </form>
+
+      <Grid item xs={12} sm={8}>
+        <TextField
+          id='outlined-basic'
+          label='First Name'
+          variant='outlined'
+          type={'text'}
+          placeholder='Enter your first name'
+          error={false}
+          required
+          fullWidth
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={8}>
+        <TextField
+          id='outlined-basic'
+          label='Last Name'
+          variant='outlined'
+          type={'text'}
+          placeholder='Enter your last name'
+          error={false}
+          required
+          fullWidth
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={8}>
+        <TextField
+          id='outlined-basic'
+          label='Email'
+          variant='outlined'
+          type={'email'}
+          placeholder='Enter your email'
+          error={false}
+          required
+          fullWidth
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={8}>
+        <TextField
+          id='outlined-basic'
+          label='Password'
+          type={'password'}
+          variant='outlined'
+          placeholder='Enter your password'
+          error={false}
+          required
+          fullWidth
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </Grid>
+      <Grid item xs={12} sm={8}>
+        <Button
+          variant='contained'
+          type='submit'
+          sx={{ padding: '0.5rem 0', fontSize: '1.3rem' }}
+          fullWidth
+        >
+          Login
+        </Button>
+      </Grid>
+    </Grid>
   )
 }
 

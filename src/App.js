@@ -1,6 +1,15 @@
-import React from "react";
-const App = () => {
-  return <div>App</div>;
-};
+import { Container, ThemeProvider, useTheme } from '@mui/material'
+import React from 'react'
+import AppRouter from './router/AppRouter'
 
-export default App;
+const App = () => {
+  return (
+    <ThemeProvider theme={useTheme()}>
+      <Container maxWidth='lg'>
+        <AppRouter />
+      </Container>
+    </ThemeProvider>
+  )
+}
+
+export default App

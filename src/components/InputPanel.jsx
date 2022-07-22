@@ -9,12 +9,16 @@ import {
   MenuItem,
   FormControl
 } from '@mui/material'
+import useFirestore from '../hooks/useFirestore'
 const InputPanel = () => {
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
+  const [userName, setUserName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [gender, setGender] = useState('')
+
+  const { addNewEntry } = useFirestore()
   const submitHandler = (e) => {
     e.preventDefault()
+    addNewEntry('users', { userName, phoneNumber, gender })
   }
   return (
     <form
@@ -47,8 +51,8 @@ const InputPanel = () => {
             error={false}
             required
             fullWidth
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -61,8 +65,8 @@ const InputPanel = () => {
             error={false}
             required
             fullWidth
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={8}>

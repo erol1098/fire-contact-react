@@ -1,9 +1,9 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-import { createContext, useEffect, useState } from 'react'
-
+import { createContext, useState } from 'react'
 const UserContext = createContext()
 export const UserContextProvider = (props) => {
+  const [contacts, setContacts] = useState([])
   const app = initializeApp({
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -13,12 +13,8 @@ export const UserContextProvider = (props) => {
     appId: process.env.REACT_APP_APP_ID
   })
 
-  const [db, setDb] = useState()
-  useEffect(() => {
-    setDb(getFirestore(app))
-  }, [app])
+  const db = getFirestore(app)
 
-  const [contacts, setContacts] = useState([])
   const values = { db, contacts, setContacts }
 
   return (

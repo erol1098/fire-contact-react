@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -9,6 +9,8 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Edit from '@mui/icons-material/Edit'
 import Delete from '@mui/icons-material/Delete'
+import UserContext from '../context/user-context'
+import useFirestore from '../hooks/useFirestore'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,6 +39,13 @@ function createData(username, phoneNumber, gender) {
 const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
 
 const ContactsTable = () => {
+  const { contacts } = useContext(UserContext)
+  const { getEntries } = useFirestore()
+
+  useEffect(() => {
+    getEntries('users')
+  }, [])
+  console.log(contacts)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label='customized table'>
@@ -50,15 +59,17 @@ const ContactsTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {contacts?.map((row) => (
+            <StyledTableRow key={row.id}>
               <StyledTableCell component='th' scope='row'>
-                {row.username}
+                {row.data.userName}
               </StyledTableCell>
               <StyledTableCell align='center'>
-                {row.phoneNumber}
+                {row.data.phoneNumber}
               </StyledTableCell>
-              <StyledTableCell align='center'>{row.gender}</StyledTableCell>
+              <StyledTableCell align='center'>
+                {row.data.gender}
+              </StyledTableCell>
               <StyledTableCell align='center'>
                 <Edit />
               </StyledTableCell>

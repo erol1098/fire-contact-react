@@ -32,20 +32,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }
 }))
 
-function createData(username, phoneNumber, gender) {
-  return { username, phoneNumber, gender }
-}
+// function createData(username, phoneNumber, gender) {
+//   return { username, phoneNumber, gender }
+// }
 
 // const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
 
 const ContactsTable = () => {
-  const { contacts } = useContext(UserContext)
-  const { getEntries } = useFirestore()
-
+  const { contacts, selectedId, setSelectedId } = useContext(UserContext)
+  const { getEntries, deleteEntry } = useFirestore()
+  const deleteHandler = (id) => {
+    deleteEntry('users', id)
+    getEntries('users')
+  }
   useEffect(() => {
     getEntries('users')
   }, [getEntries])
-  console.log(contacts)
+  console.log('contacts', contacts)
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label='customized table'>
@@ -59,22 +62,28 @@ const ContactsTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {contacts?.map((row) => (
-            <StyledTableRow key={row.id}>
+          {contacts?.map((contact) => (
+            <StyledTableRow key={contact.id}>
               <StyledTableCell component='th' scope='row'>
-                {row.data.userName}
+                {contact.data.userName}
               </StyledTableCell>
               <StyledTableCell align='center'>
-                {row.data.phoneNumber}
+                {contact.data.phoneNumber}
               </StyledTableCell>
               <StyledTableCell align='center'>
-                {row.data.gender}
+                {contact.data.gender}
               </StyledTableCell>
               <StyledTableCell align='center'>
-                <Edit />
+                <Edit
+                  sx={{ cursor: 'pointer' }}
+                  onClick={(e) => setSelectedId(contact.id)}
+                />
               </StyledTableCell>
               <StyledTableCell align='center'>
-                <Delete />
+                <Delete
+                  sx={{ cursor: 'pointer' }}
+                  onClick={() => deleteHandler(contact.id)}
+                />
               </StyledTableCell>
             </StyledTableRow>
           ))}

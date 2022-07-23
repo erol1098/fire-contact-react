@@ -1,5 +1,5 @@
 import UserContext from '../context/user-context'
-import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { useCallback, useContext } from 'react'
 
 const useFirestore = () => {
@@ -28,7 +28,11 @@ const useFirestore = () => {
     [db, setContacts]
   )
 
-  return { addNewEntry, getEntries }
+  const deleteEntry = async (collectionName, selectedId) => {
+    await deleteDoc(doc(db, collectionName, selectedId))
+  }
+
+  return { addNewEntry, getEntries, deleteEntry }
 }
 
 export default useFirestore

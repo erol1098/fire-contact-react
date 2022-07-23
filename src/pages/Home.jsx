@@ -6,12 +6,7 @@ import InputPanel from '../components/InputPanel'
 
 const Home = () => {
   return (
-    <Grid
-      container
-      justifyContent={'space-between'}
-      alignItems={'center'}
-      // gap={2}
-    >
+    <Grid container justifyContent={'space-between'} alignItems={'center'}>
       <Grid item xs={12} sm={6} md={5} lg={4} padding={3}>
         <InputPanel />
       </Grid>

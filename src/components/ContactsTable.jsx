@@ -36,7 +36,7 @@ function createData(username, phoneNumber, gender) {
   return { username, phoneNumber, gender }
 }
 
-const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
+// const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
 
 const ContactsTable = () => {
   const { contacts } = useContext(UserContext)
@@ -44,7 +44,7 @@ const ContactsTable = () => {
 
   useEffect(() => {
     getEntries('users')
-  }, [])
+  }, [getEntries])
   console.log(contacts)
   return (
     <TableContainer component={Paper}>

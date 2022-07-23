@@ -15,10 +15,11 @@ const InputPanel = () => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [gender, setGender] = useState('')
 
-  const { addNewEntry } = useFirestore()
+  const { addNewEntry, getEntries } = useFirestore()
   const submitHandler = (e) => {
     e.preventDefault()
     addNewEntry('users', { userName, phoneNumber, gender })
+    getEntries('users')
   }
   return (
     <form
@@ -79,8 +80,8 @@ const InputPanel = () => {
               label='Gender'
               onChange={(e) => setGender(e.target.value)}
             >
-              <MenuItem value={'female'}>Female</MenuItem>
-              <MenuItem value={'male'}>Male</MenuItem>
+              <MenuItem value={'Female'}>Female</MenuItem>
+              <MenuItem value={'Male'}>Male</MenuItem>
             </Select>
           </FormControl>
         </Grid>

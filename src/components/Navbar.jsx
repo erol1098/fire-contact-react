@@ -18,10 +18,17 @@ import AuthContext from '../context/auth-context'
 import { AppBar, Button, Container, Toolbar } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment'
+import UserContext from '../context/user-context'
 export default function AccountMenu() {
   const { userInfo, auth } = useContext(AuthContext)
+  const { setContacts } = useContext(UserContext)
   const { logOut } = useFirebase(auth)
   const navigate = useNavigate()
+  useContext(UserContext)
+  const logOutHandler = () => {
+    logOut()
+    setContacts([])
+  }
 
   //* Navbar Functions
   const [anchorEl, setAnchorEl] = useState(null)
@@ -219,7 +226,7 @@ export default function AccountMenu() {
                 </MenuItem>
               )}
               {userInfo && (
-                <MenuItem onClick={() => logOut()}>
+                <MenuItem onClick={logOutHandler}>
                   <ListItemIcon>
                     <Logout fontSize='small' />
                   </ListItemIcon>

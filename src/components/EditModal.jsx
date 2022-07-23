@@ -12,10 +12,11 @@ import {
 } from '@mui/material'
 import useFirestore from '../hooks/useFirestore'
 import UserContext from '../context/user-context'
+import AuthContext from '../context/auth-context'
 
 const EditModal = () => {
   const { currentData, setCurrentData } = useContext(UserContext)
-  console.log('current', currentData)
+  const { collectionName } = useContext(AuthContext)
   const [userName, setUserName] = useState()
   const [phoneNumber, setPhoneNumber] = useState()
   const [gender, setGender] = useState()
@@ -32,8 +33,8 @@ const EditModal = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    updateEntry('users', { userName, phoneNumber, gender, id })
-    getEntries('users')
+    updateEntry(collectionName, { userName, phoneNumber, gender, id })
+    getEntries()
     handleClose()
     setCurrentData(null)
   }

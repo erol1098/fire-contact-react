@@ -18,8 +18,8 @@ const InputPanel = () => {
   const { addNewEntry, getEntries } = useFirestore()
   const submitHandler = (e) => {
     e.preventDefault()
-    addNewEntry('users', { userName, phoneNumber, gender })
-    getEntries('users')
+    addNewEntry({ userName, phoneNumber, gender })
+    getEntries()
   }
   return (
     <Grid

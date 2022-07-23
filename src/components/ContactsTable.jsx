@@ -12,6 +12,7 @@ import Delete from '@mui/icons-material/Delete'
 import UserContext from '../context/user-context'
 import useFirestore from '../hooks/useFirestore'
 import { Skeleton } from '@mui/material'
+import AuthContext from '../context/auth-context'
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -32,30 +33,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   }
 }))
 
-// function createData(username, phoneNumber, gender) {
-//   return { username, phoneNumber, gender }
-// }
-
-// const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
-
 const ContactsTable = () => {
   const { contacts, loading, currentData, setCurrentData } =
     useContext(UserContext)
+  const { collectionName } = useContext(AuthContext)
+
   const { getEntries, deleteEntry } = useFirestore()
   const deleteHandler = (id) => {
-    deleteEntry('users', id)
-    getEntries('users')
+    deleteEntry(collectionName, id)
+    getEntries()
   }
   const editHandler = (contact, id) => {
-    console.log('contact', contact)
     const { userName, phoneNumber, gender } = contact
     setCurrentData([userName, phoneNumber, gender, id])
   }
 
   useEffect(() => {
-    getEntries('users')
+    getEntries()
   }, [getEntries])
-  console.log('contacts', contacts)
   return (
     <>
       {currentData}

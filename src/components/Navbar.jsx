@@ -13,9 +13,9 @@ import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import LoginIcon from '@mui/icons-material/Login'
 import { useNavigate } from 'react-router-dom'
-import useFirebase from 'auth-web-firebase'
+import { useFirebase } from 'auth-web-firebase'
 import AuthContext from '../context/auth-context'
-import { AppBar, Button, Container, Toolbar } from '@mui/material'
+import { AppBar, Container, Toolbar } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment'
 import UserContext from '../context/user-context'
@@ -27,6 +27,7 @@ export default function AccountMenu() {
   useContext(UserContext)
   const logOutHandler = () => {
     logOut()
+
     setContacts([])
   }
 
@@ -70,7 +71,7 @@ export default function AccountMenu() {
                 textDecoration: 'none'
               }}
             >
-              LOGO
+              FireContact
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -127,15 +128,15 @@ export default function AccountMenu() {
                 textDecoration: 'none'
               }}
             >
-              LOGO
+              FireContact
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button
+              {/* <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 Item
-              </Button>
+              </Button> */}
             </Box>
 
             <Tooltip title='Account settings'>
@@ -148,14 +149,15 @@ export default function AccountMenu() {
                 aria-expanded={open ? 'true' : undefined}
               >
                 <Avatar
-                  src={`https://ui-avatars.com/api/?name=${userInfo?.displayName?.replace(
-                    ' ',
-                    '+'
-                  )}`}
+                  src={
+                    userInfo?.photoURL ||
+                    `https://ui-avatars.com/api/?name=${userInfo?.displayName?.replace(
+                      ' ',
+                      '+'
+                    )}`
+                  }
                   sx={{ width: 32, height: 32 }}
-                >
-                  M
-                </Avatar>
+                />
               </IconButton>
             </Tooltip>
 
@@ -197,9 +199,13 @@ export default function AccountMenu() {
               {userInfo && (
                 <MenuItem onClick={(e) => navigate('/profile')}>
                   <Avatar
-                    src={`https://ui-avatars.com/api/?name=${
-                      userInfo.displayName?.replace(' ', '+') || 'undefined'
-                    }`}
+                    src={
+                      userInfo?.photoURL ||
+                      `https://ui-avatars.com/api/?name=${userInfo?.displayName?.replace(
+                        ' ',
+                        '+'
+                      )}`
+                    }
                   />
                   {userInfo?.displayName}
                 </MenuItem>

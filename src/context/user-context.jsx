@@ -15,9 +15,7 @@ export const UserContextProvider = (props) => {
     messagingSenderId: process.env.REACT_APP_STORAGE_BUCKET,
     appId: process.env.REACT_APP_APP_ID
   })
-
   const db = getFirestore(app)
-
   const values = {
     db,
     contacts,

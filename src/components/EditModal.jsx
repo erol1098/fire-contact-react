@@ -17,10 +17,10 @@ import AuthContext from '../context/auth-context'
 const EditModal = () => {
   const { currentData, setCurrentData } = useContext(UserContext)
   const { collectionName } = useContext(AuthContext)
-  const [userName, setUserName] = useState()
-  const [phoneNumber, setPhoneNumber] = useState()
-  const [gender, setGender] = useState()
-  const [id, setId] = useState()
+  const [userName, setUserName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [gender, setGender] = useState('')
+  const [id, setId] = useState('')
 
   useEffect(() => {
     currentData && setUserName(currentData[0])
@@ -116,7 +116,7 @@ const EditModal = () => {
             sx={{ padding: '0.5rem 0', fontSize: '1.3rem' }}
             fullWidth
           >
-            Add
+            Change
           </Button>
         </Stack>
       </Modal>

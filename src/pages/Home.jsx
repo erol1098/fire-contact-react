@@ -6,11 +6,17 @@ import InputPanel from '../components/InputPanel'
 
 const Home = () => {
   return (
-    <Grid container justifyContent={'space-between'} alignItems={'flex-start'}>
-      <Grid item xs={12} sm={6} md={5} lg={4} padding={3}>
+    <Grid
+      container
+      justifyContent={'center'}
+      alignItems={'flex-start'}
+      gap={3}
+      marginTop={3}
+    >
+      <Grid item xs={12} sm={8} md={5} lg={4}>
         <InputPanel />
       </Grid>
-      <Grid item xs={12} sm={6} md={7} lg={8} padding={3}>
+      <Grid item xs={12} sm={8} md={6} lg={7}>
         <ContactsTable />
       </Grid>
     </Grid>

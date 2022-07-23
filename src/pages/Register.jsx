@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Grid, TextField, Button, Typography } from '@mui/material'
-import useFirebase from 'auth-web-firebase'
+import { useFirebase } from 'auth-web-firebase'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/auth-context'
 const Register = () => {
@@ -98,7 +98,7 @@ const Register = () => {
           sx={{ padding: '0.5rem 0', fontSize: '1.3rem' }}
           fullWidth
         >
-          Login
+          Register
         </Button>
       </Grid>
     </Grid>

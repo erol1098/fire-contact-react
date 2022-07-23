@@ -11,7 +11,7 @@ import Edit from '@mui/icons-material/Edit'
 import Delete from '@mui/icons-material/Delete'
 import UserContext from '../context/user-context'
 import useFirestore from '../hooks/useFirestore'
-
+import { Skeleton } from '@mui/material'
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -39,57 +39,100 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
 
 const ContactsTable = () => {
-  const { contacts, selectedId, setSelectedId } = useContext(UserContext)
+  const { contacts, loading } = useContext(UserContext)
   const { getEntries, deleteEntry } = useFirestore()
   const deleteHandler = (id) => {
     deleteEntry('users', id)
     getEntries('users')
   }
+  const editHandler = () => {}
   useEffect(() => {
     getEntries('users')
   }, [getEntries])
   console.log('contacts', contacts)
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label='customized table'>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align='center'>User Name</StyledTableCell>
-            <StyledTableCell align='center'>Phone Number</StyledTableCell>
-            <StyledTableCell align='center'>Gender</StyledTableCell>
-            <StyledTableCell align='center'>Edit</StyledTableCell>
-            <StyledTableCell align='center'>Delete</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {contacts?.map((contact) => (
-            <StyledTableRow key={contact.id}>
-              <StyledTableCell component='th' scope='row'>
-                {contact.data.userName}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {contact.data.phoneNumber}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                {contact.data.gender}
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                <Edit
-                  sx={{ cursor: 'pointer' }}
-                  onClick={(e) => setSelectedId(contact.id)}
-                />
-              </StyledTableCell>
-              <StyledTableCell align='center'>
-                <Delete
-                  sx={{ cursor: 'pointer' }}
-                  onClick={() => deleteHandler(contact.id)}
-                />
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      <TableContainer component={Paper} sx={{ marginTop: '1.5rem' }}>
+        {loading && (
+          <>
+            <Skeleton variant='rectangle' sx={{ width: '100%' }} height={50} />
+
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+            <Skeleton
+              variant='text'
+              sx={{ width: '100%', marginBottom: '0.5rem' }}
+            />
+          </>
+        )}
+        {!loading && (
+          <Table sx={{ minWidth: 700 }} aria-label='customized table'>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align='center'>User Name</StyledTableCell>
+                <StyledTableCell align='center'>Phone Number</StyledTableCell>
+                <StyledTableCell align='center'>Gender</StyledTableCell>
+                <StyledTableCell align='center'>Edit</StyledTableCell>
+                <StyledTableCell align='center'>Delete</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {contacts?.map((contact) => (
+                <StyledTableRow key={contact.id}>
+                  <StyledTableCell component='th' scope='row'>
+                    {contact.data.userName}
+                  </StyledTableCell>
+                  <StyledTableCell align='center'>
+                    {contact.data.phoneNumber}
+                  </StyledTableCell>
+                  <StyledTableCell align='center'>
+                    {contact.data.gender}
+                  </StyledTableCell>
+                  <StyledTableCell align='center'>
+                    <Edit
+                      sx={{ cursor: 'pointer' }}
+                      onClick={(e) => editHandler(contact.id)}
+                    />
+                  </StyledTableCell>
+                  <StyledTableCell align='center'>
+                    <Delete
+                      sx={{ cursor: 'pointer' }}
+                      onClick={() => deleteHandler(contact.id)}
+                    />
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
+      </TableContainer>
+    </>
   )
 }
 export default ContactsTable

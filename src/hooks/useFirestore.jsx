@@ -3,7 +3,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { useCallback, useContext } from 'react'
 
 const useFirestore = () => {
-  const { db, setContacts } = useContext(UserContext)
+  const { db, setContacts, setLoading } = useContext(UserContext)
 
   const addNewEntry = async (collectionName, data) => {
     try {
@@ -15,6 +15,7 @@ const useFirestore = () => {
   }
   const getEntries = useCallback(
     async (collectionName) => {
+      setLoading(true)
       try {
         const querySnapshot = await getDocs(collection(db, collectionName))
         setContacts(
@@ -23,6 +24,8 @@ const useFirestore = () => {
         console.log(`Colllection "${collectionName}" readed from db`)
       } catch (error) {
         console.error('Error reading document: ', error)
+      } finally {
+        setLoading(false)
       }
     },
     [db, setContacts]

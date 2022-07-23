@@ -46,10 +46,10 @@ const ContactsTable = () => {
     deleteEntry('users', id)
     getEntries('users')
   }
-  const editHandler = (contact) => {
+  const editHandler = (contact, id) => {
     console.log('contact', contact)
     const { userName, phoneNumber, gender } = contact
-    setCurrentData([userName, phoneNumber, gender])
+    setCurrentData([userName, phoneNumber, gender, id])
   }
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const ContactsTable = () => {
                   <StyledTableCell align='center'>
                     <Edit
                       sx={{ cursor: 'pointer' }}
-                      onClick={(e) => editHandler(contact.data)}
+                      onClick={(e) => editHandler(contact.data, contact.id)}
                     />
                   </StyledTableCell>
                   <StyledTableCell align='center'>

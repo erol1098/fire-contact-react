@@ -19,18 +19,20 @@ const EditModal = () => {
   const [userName, setUserName] = useState()
   const [phoneNumber, setPhoneNumber] = useState()
   const [gender, setGender] = useState()
+  const [id, setId] = useState()
 
   useEffect(() => {
     currentData && setUserName(currentData[0])
     currentData && setPhoneNumber(currentData[1])
     currentData && setGender(currentData[2])
+    currentData && setId(currentData[3])
   }, [currentData])
 
-  const { getEntries } = useFirestore()
+  const { getEntries, updateEntry } = useFirestore()
 
   const submitHandler = (e) => {
     e.preventDefault()
-    // addNewEntry('users', { userName, phoneNumber, gender })
+    updateEntry('users', { userName, phoneNumber, gender, id })
     getEntries('users')
     handleClose()
     setCurrentData(null)
@@ -52,14 +54,15 @@ const EditModal = () => {
     currentData && setOpen(true)
   }, [currentData])
 
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-
+  const handleClose = () => {
+    setCurrentData('')
+    setOpen(false)
+  }
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
@@ -73,7 +76,6 @@ const EditModal = () => {
             type={'text'}
             label='Name'
             variant='outlined'
-            // placeholder='Enter name'
             error={false}
             required
             fullWidth
@@ -86,7 +88,6 @@ const EditModal = () => {
             type={'tel'}
             label='Phone'
             variant='outlined'
-            // placeholder='Enter phone number'
             error={false}
             required
             fullWidth

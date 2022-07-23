@@ -1,5 +1,12 @@
 import UserContext from '../context/user-context'
-import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  deleteDoc,
+  updateDoc
+} from 'firebase/firestore'
 import { useCallback, useContext } from 'react'
 
 const useFirestore = () => {
@@ -34,8 +41,18 @@ const useFirestore = () => {
   const deleteEntry = async (collectionName, selectedId) => {
     await deleteDoc(doc(db, collectionName, selectedId))
   }
+  const updateEntry = async (
+    collectionName,
+    { userName, phoneNumber, gender, id }
+  ) => {
+    await updateDoc(doc(db, collectionName, id), {
+      userName,
+      phoneNumber,
+      gender
+    })
+  }
 
-  return { addNewEntry, getEntries, deleteEntry }
+  return { addNewEntry, getEntries, deleteEntry, updateEntry }
 }
 
 export default useFirestore

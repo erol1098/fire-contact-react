@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import EditModal from '../components/EditModal'
+import BasicModal from '../components/Modal'
 import Navbar from '../components/Navbar'
 import { AuthContextProvider } from '../context/auth-context'
 import { UserContextProvider } from '../context/user-context'
@@ -14,6 +16,8 @@ const AppRouter = () => {
       <UserContextProvider>
         <BrowserRouter>
           <Navbar />
+          <BasicModal />
+          <EditModal />
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='login' element={<Login />} />

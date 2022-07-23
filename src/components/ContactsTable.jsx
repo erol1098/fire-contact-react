@@ -52,7 +52,7 @@ const ContactsTable = () => {
   console.log('contacts', contacts)
   return (
     <>
-      <TableContainer component={Paper} sx={{ marginTop: '1.5rem' }}>
+      <TableContainer component={Paper}>
         {loading && (
           <>
             <Skeleton variant='rectangle' sx={{ width: '100%' }} height={50} />

@@ -28,7 +28,7 @@ const useFirestore = () => {
         setLoading(false)
       }
     },
-    [db, setContacts]
+    [db, setContacts, setLoading]
   )
 
   const deleteEntry = async (collectionName, selectedId) => {

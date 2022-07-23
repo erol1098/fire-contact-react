@@ -39,19 +39,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 // const rows = [createData('Behzat Ç', 1594433, 'male', 24, 4.0)]
 
 const ContactsTable = () => {
-  const { contacts, loading } = useContext(UserContext)
+  const { contacts, loading, currentData, setCurrentData } =
+    useContext(UserContext)
   const { getEntries, deleteEntry } = useFirestore()
   const deleteHandler = (id) => {
     deleteEntry('users', id)
     getEntries('users')
   }
-  const editHandler = () => {}
+  const editHandler = (contact) => {
+    console.log('contact', contact)
+    const { userName, phoneNumber, gender } = contact
+    setCurrentData([userName, phoneNumber, gender])
+  }
+
   useEffect(() => {
     getEntries('users')
   }, [getEntries])
   console.log('contacts', contacts)
   return (
     <>
+      {currentData}
       <TableContainer component={Paper}>
         {loading && (
           <>
@@ -117,7 +124,7 @@ const ContactsTable = () => {
                   <StyledTableCell align='center'>
                     <Edit
                       sx={{ cursor: 'pointer' }}
-                      onClick={(e) => editHandler(contact.id)}
+                      onClick={(e) => editHandler(contact.data)}
                     />
                   </StyledTableCell>
                   <StyledTableCell align='center'>

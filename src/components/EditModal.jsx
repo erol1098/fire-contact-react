@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
@@ -8,21 +8,32 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Box
+  Stack
 } from '@mui/material'
 import useFirestore from '../hooks/useFirestore'
+import UserContext from '../context/user-context'
 
-const EditModal = ({ show, title, message }) => {
-  const [userName, setUserName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [gender, setGender] = useState('')
+const EditModal = () => {
+  const { currentData, setCurrentData } = useContext(UserContext)
+  console.log('current', currentData)
+  const [userName, setUserName] = useState()
+  const [phoneNumber, setPhoneNumber] = useState()
+  const [gender, setGender] = useState()
 
-  const { addNewEntry, getEntries } = useFirestore()
+  useEffect(() => {
+    currentData && setUserName(currentData[0])
+    currentData && setPhoneNumber(currentData[1])
+    currentData && setGender(currentData[2])
+  }, [currentData])
+
+  const { getEntries } = useFirestore()
+
   const submitHandler = (e) => {
     e.preventDefault()
-    addNewEntry('users', { userName, phoneNumber, gender })
+    // addNewEntry('users', { userName, phoneNumber, gender })
     getEntries('users')
     handleClose()
+    setCurrentData(null)
   }
   //* Modal Functions
   const style = {
@@ -38,8 +49,8 @@ const EditModal = ({ show, title, message }) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    show && setOpen(true)
-  }, [show])
+    currentData && setOpen(true)
+  }, [currentData])
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -52,7 +63,7 @@ const EditModal = ({ show, title, message }) => {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={style} component='form' onSubmit={submitHandler}>
+        <Stack sx={style} component='form' onSubmit={submitHandler} spacing={2}>
           <Typography variant='h1' fontSize={24} textAlign={'center'} mb={1}>
             Edit Contact
           </Typography>
@@ -62,7 +73,7 @@ const EditModal = ({ show, title, message }) => {
             type={'text'}
             label='Name'
             variant='outlined'
-            placeholder='Enter name'
+            // placeholder='Enter name'
             error={false}
             required
             fullWidth
@@ -75,7 +86,7 @@ const EditModal = ({ show, title, message }) => {
             type={'tel'}
             label='Phone'
             variant='outlined'
-            placeholder='Enter phone number'
+            // placeholder='Enter phone number'
             error={false}
             required
             fullWidth
@@ -105,7 +116,7 @@ const EditModal = ({ show, title, message }) => {
           >
             Add
           </Button>
-        </Box>
+        </Stack>
       </Modal>
     </div>
   )

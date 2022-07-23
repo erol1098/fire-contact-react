@@ -5,6 +5,8 @@ const UserContext = createContext()
 export const UserContextProvider = (props) => {
   const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const [currentData, setCurrentData] = useState(null)
   const app = initializeApp({
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -16,7 +18,15 @@ export const UserContextProvider = (props) => {
 
   const db = getFirestore(app)
 
-  const values = { db, contacts, setContacts, loading, setLoading }
+  const values = {
+    db,
+    contacts,
+    setContacts,
+    loading,
+    setLoading,
+    currentData,
+    setCurrentData
+  }
 
   return (
     <UserContext.Provider value={values}>{props.children}</UserContext.Provider>

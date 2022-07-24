@@ -1,11 +1,11 @@
 import { createContext, useState, useEffect } from 'react'
-import { useFirebase, initialize } from 'auth-web-firebase'
+import { useAuth, initialize } from 'web-firebase'
 const AuthContext = createContext()
 
 export const AuthContextProvider = (props) => {
   const [auth, setAuth] = useState(null)
   const [collectionName, setCollectionName] = useState(null)
-  const { userObserver, userInfo, error } = useFirebase(auth) //! example
+  const { userObserver, userInfo, error } = useAuth(auth) //! example
 
   useEffect(() => {
     setCollectionName(userInfo?.uid)

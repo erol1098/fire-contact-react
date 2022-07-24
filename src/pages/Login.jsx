@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Grid, TextField, Button, Typography } from '@mui/material'
-import { useFirebase } from 'auth-web-firebase'
+import { useAuth } from 'web-firebase'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../context/auth-context'
 import BasicModal from '../components/Modal'
@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const { auth } = useContext(AuthContext)
   const navigate = useNavigate()
-  const { signIn, googleAuth, error } = useFirebase(auth)
+  const { signIn, googleAuth, error } = useAuth(auth)
 
   useEffect(() => {
     console.log('error', error)
